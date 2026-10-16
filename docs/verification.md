@@ -27,7 +27,7 @@ The script checks lost/found creation (201), listing, exact detail retrieval, co
 
 ## Manual checks
 
-Report creation, type/category/text filters, details, and persistence after restart were checked in the browser. Screenshots show the list, filtered results, details, an unsupported-category request and its 422 response, and verification PASS output. See the [evidence index](presentation-evidence.md).
+Report creation, type/category/text filters, details, and persistence after restart were checked in the browser. Screenshots show the list, filtered results, details, an unsupported-category request and its 422 response, and verification PASS output.
 
 Still to check: clearing filters after empty results, required-field messages, keyboard navigation, narrow-screen layout, and recording playback.
 

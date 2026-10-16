@@ -33,7 +33,3 @@ The SQLite database is created automatically at `data/findback.sqlite3` on first
 - [Architecture](docs/architecture.md)
 - [Progress and remaining work](docs/progress.md)
 - [Verification](docs/verification.md)
-- [Demo walkthrough](docs/demo-script.md)
-- [Presentation outline](docs/midpoint-outline.md)
-- [Presentation evidence](docs/presentation-evidence.md)
-- [S3 backup experiment - deferred](docs/cloud-backup.md)
