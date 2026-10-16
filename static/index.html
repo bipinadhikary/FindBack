@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FindBack · Campus lost &amp; found</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="brand">FindBack<span>Campus lost &amp; found</span></div>
+    <span class="tag">Local midpoint prototype</span>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="eyebrow">ONE CAMPUS. A LITTLE LESS LOST.</p>
+      <h1>Lost something?<br>Let’s find it back.</h1>
+      <p>Report a missing belonging or help a found item get home.</p>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <h2>Create a report</h2>
+        <p>Demo with synthetic information only. Reports are stored on this computer.</p>
+        <form id="report-form">
+          <label>Report type
+            <select name="report_type" required>
+              <option value="lost">I lost an item</option>
+              <option value="found">I found an item</option>
+            </select>
+          </label>
+          <label>Title
+            <input name="title" required minlength="3" maxlength="100"
+                   placeholder="Blue backpack near the library">
+          </label>
+          <label>Category
+            <select name="category" required>
+              <option value="backpack">Backpack</option>
+              <option value="water bottle">Water bottle</option>
+              <option value="headphones">Headphones</option>
+            </select>
+          </label>
+          <label>Description
+            <textarea name="description" required minlength="10" maxlength="2000"
+                      rows="4" placeholder="Describe color, brand, and distinctive features"></textarea>
+          </label>
+          <label>Location
+            <input name="location" required minlength="2" maxlength="200"
+                   placeholder="Campus library">
+          </label>
+          <label>Date lost or found
+            <input name="date" type="date" required>
+          </label>
+          <button type="submit">Save report</button>
+          <p id="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="panel browse">
+        <h2>Browse reports</h2>
+        <form id="filters" class="filters">
+          <label>Type
+            <select name="report_type">
+              <option value="">All types</option>
+              <option value="lost">Lost</option>
+              <option value="found">Found</option>
+            </select>
+          </label>
+          <label>Category
+            <select name="category">
+              <option value="">All categories</option>
+              <option>backpack</option>
+              <option>water bottle</option>
+              <option>headphones</option>
+            </select>
+          </label>
+          <label>Search
+            <input name="q" maxlength="200" placeholder="Title, description, location">
+          </label>
+          <button>Apply filters</button>
+        </form>
+        <p id="list-message" role="status" aria-live="polite"></p>
+        <div id="reports"></div>
+      </section>
+    </div>
+
+    <dialog id="details">
+      <button id="close-details" class="secondary">Close details</button>
+      <div id="detail-content"></div>
+    </dialog>
+    <footer>Built by Bipin Adhikari</footer>
+  </main>
+</body>
+</html>

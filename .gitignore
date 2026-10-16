@@ -211,6 +211,16 @@ tempCodeRunnerFile.py
 # PyPI configuration file
 .pypirc
 
+# Local prototype data and uploads
+data/
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+uploads/
+.aws/
+.env.*
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
@@ -218,3 +228,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Private presentation build and previews
+.presentation-build/
+
+# OS metadata, local database variants, and credential files
+.DS_Store
+Thumbs.db
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.pem
+*.key

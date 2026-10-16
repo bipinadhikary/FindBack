@@ -1,0 +1,2 @@
+# Optional SDK for the Learner Lab S3 backup; not needed by the local server.
+boto3>=1.40,<2
