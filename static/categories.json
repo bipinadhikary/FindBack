@@ -1,0 +1,239 @@
+[
+  {
+    "group": "Bags & carrying cases",
+    "items": [
+      {
+        "value": "backpack",
+        "label": "Backpack"
+      },
+      {
+        "value": "bag",
+        "label": "Handbag, tote or shoulder bag"
+      },
+      {
+        "value": "luggage",
+        "label": "Suitcase or luggage"
+      },
+      {
+        "value": "case",
+        "label": "Laptop sleeve, pouch or carrying case"
+      }
+    ]
+  },
+  {
+    "group": "Electronics",
+    "items": [
+      {
+        "value": "phone",
+        "label": "Phone"
+      },
+      {
+        "value": "laptop",
+        "label": "Laptop"
+      },
+      {
+        "value": "tablet",
+        "label": "Tablet or e-reader"
+      },
+      {
+        "value": "headphones",
+        "label": "Headphones or earbuds"
+      },
+      {
+        "value": "charger",
+        "label": "Charger or cable"
+      },
+      {
+        "value": "power bank",
+        "label": "Power bank"
+      },
+      {
+        "value": "usb drive",
+        "label": "USB drive, memory card or external drive"
+      },
+      {
+        "value": "calculator",
+        "label": "Calculator"
+      },
+      {
+        "value": "camera",
+        "label": "Camera or camera accessories"
+      },
+      {
+        "value": "computer accessory",
+        "label": "Mouse, keyboard or other computer accessory"
+      },
+      {
+        "value": "speaker",
+        "label": "Portable speaker"
+      },
+      {
+        "value": "gaming device",
+        "label": "Gaming device or controller"
+      }
+    ]
+  },
+  {
+    "group": "Cards, keys & valuables",
+    "items": [
+      {
+        "value": "id card",
+        "label": "Student ID or access card"
+      },
+      {
+        "value": "keys",
+        "label": "Keys, key fob or lanyard"
+      },
+      {
+        "value": "wallet",
+        "label": "Wallet or purse"
+      },
+      {
+        "value": "bank card",
+        "label": "Bank or payment card"
+      },
+      {
+        "value": "document",
+        "label": "Passport, license or other document"
+      },
+      {
+        "value": "cash",
+        "label": "Cash"
+      },
+      {
+        "value": "jewelry",
+        "label": "Jewelry"
+      },
+      {
+        "value": "watch",
+        "label": "Watch or smartwatch"
+      }
+    ]
+  },
+  {
+    "group": "Clothing & personal items",
+    "items": [
+      {
+        "value": "clothing",
+        "label": "Jacket, hoodie or other clothing"
+      },
+      {
+        "value": "hat",
+        "label": "Hat or cap"
+      },
+      {
+        "value": "scarf gloves",
+        "label": "Scarf or gloves"
+      },
+      {
+        "value": "shoes",
+        "label": "Shoes or footwear"
+      },
+      {
+        "value": "glasses",
+        "label": "Glasses or sunglasses"
+      },
+      {
+        "value": "umbrella",
+        "label": "Umbrella"
+      },
+      {
+        "value": "personal care",
+        "label": "Personal-care item or makeup bag"
+      }
+    ]
+  },
+  {
+    "group": "Study & creative supplies",
+    "items": [
+      {
+        "value": "book",
+        "label": "Textbook or other book"
+      },
+      {
+        "value": "notebook",
+        "label": "Notebook, planner or folder"
+      },
+      {
+        "value": "stationery",
+        "label": "Pens, pencil case or stationery"
+      },
+      {
+        "value": "art supplies",
+        "label": "Art or craft supplies"
+      },
+      {
+        "value": "musical instrument",
+        "label": "Musical instrument or accessories"
+      },
+      {
+        "value": "lab equipment",
+        "label": "Lab coat, goggles or course equipment"
+      }
+    ]
+  },
+  {
+    "group": "Food & drink containers",
+    "items": [
+      {
+        "value": "water bottle",
+        "label": "Water bottle"
+      },
+      {
+        "value": "cup",
+        "label": "Mug, tumbler or thermos"
+      },
+      {
+        "value": "lunch box",
+        "label": "Lunch box or food container"
+      }
+    ]
+  },
+  {
+    "group": "Sports & transport",
+    "items": [
+      {
+        "value": "sports equipment",
+        "label": "Sports or gym equipment"
+      },
+      {
+        "value": "helmet",
+        "label": "Helmet or protective gear"
+      },
+      {
+        "value": "bicycle",
+        "label": "Bicycle"
+      },
+      {
+        "value": "scooter",
+        "label": "Scooter"
+      },
+      {
+        "value": "skateboard",
+        "label": "Skateboard or roller skates"
+      }
+    ]
+  },
+  {
+    "group": "Health & accessibility",
+    "items": [
+      {
+        "value": "medical item",
+        "label": "Medication or medical supplies"
+      },
+      {
+        "value": "assistive device",
+        "label": "Hearing aid, mobility aid or assistive device"
+      }
+    ]
+  },
+  {
+    "group": "Anything else",
+    "items": [
+      {
+        "value": "other",
+        "label": "Other — specify item"
+      }
+    ]
+  }
+]

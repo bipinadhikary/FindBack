@@ -1,40 +1,19 @@
 # Verification
 
-Environment checked on October 16, 2026: Windows, Python 3.14.7. `pip check` reported no broken requirements.
+Run the scripts in the README with dependencies installed. Tests create temporary databases and isolated server processes, rather than modifying live data.
 
-## Automated checks
+| Script | Coverage |
+|---|---|
+| verify.py | Accounts, reports, photos, validation, migration, roles, sessions, CSRF, throttling |
+| test_chat.py | Private chat, participant permissions, read state, persistence |
+| test_claims.py | Finder/reception actions, handover, withdrawal, competing claims |
+| test_matching.py | Matching rules, exclusions, lifecycle |
+| test_activity.py | Recipient-scoped notifications, pagination, read state |
+| test_database_backup.py | Full SQLite backup checks |
+| test_cloud_backup.py | Legacy reports export using mock S3; no AWS calls |
 
-From the project folder on Windows:
+On November 12, 2026, deployment checks verified HTTPS homepage 200, health status ok, unauthenticated reports 401, HTTP-to-HTTPS redirect 301, and a successful certificate renewal dry-run. Workflow and persistence checks passed during deployment.
 
-```text
-.\.venv\Scripts\python.exe scripts\verify.py
-```
+These are dated functional observations, not uptime or capacity guarantees. No controlled load test, response-time benchmark, or matching-accuracy study has been performed.
 
-On macOS, with the virtual environment active:
-
-```sh
-python scripts/verify.py
-```
-
-The last successful run produced:
-
-```text
-PASS: creation, list, detail, combined filters, empty results, validation, 404, frontend assets
-PASS: both reports survive a real server restart; temporary test database only
-```
-
-The script checks lost/found creation (201), listing, exact detail retrieval, combined filters, empty results, invalid/missing fields (422), a missing report (404), and HTML/CSS/JavaScript delivery. It stops and restarts a real server and checks that both reports remain. Tests use a temporary database and do not modify local demo reports.
-
-## Manual checks
-
-Report creation, type/category/text filters, details, and persistence after restart were checked in the browser. Screenshots show the list, filtered results, details, an unsupported-category request and its 422 response, and verification PASS output.
-
-Still to check: clearing filters after empty results, required-field messages, keyboard navigation, narrow-screen layout, and recording playback.
-
-## S3 experiment
-
-```text
-.\.venv\Scripts\python.exe scripts\test_cloud_backup.py
-```
-
-All three offline tests passed. They check upload parameters, matching downloaded bytes, corruption detection, stream closure, and avoiding database creation at an invalid path. The local export dry run also passed. These checks do not contact AWS; live S3 upload/download remains unverified.
+Final repository verification on November 26, 2026: all seven listed scripts passed in a fresh Python 3.12.14 virtual environment using requirements.txt. No production database was used.

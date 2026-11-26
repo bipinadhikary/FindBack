@@ -241,3 +241,11 @@ Thumbs.db
 *.db-shm
 *.pem
 *.key
+
+# Private deployment material and backups
+*.pem
+*.key
+*.db
+*.db-*
+backups/
+*.bak

@@ -17,13 +17,17 @@ def export_reports(database):
     connection = sqlite3.connect(database.resolve().as_uri() + '?mode=ro', uri=True)
     connection.row_factory = sqlite3.Row
     try:
+        columns = {row['name'] for row in connection.execute('PRAGMA table_info(reports)')}
+        custom = 'custom_category' if 'custom_category' in columns else 'NULL AS custom_category'
+        pickup = ', '.join(name if name in columns else 'NULL AS ' + name
+                           for name in ('custody', 'collection_location', 'pickup_instructions'))
         reports = [dict(row) for row in connection.execute(
-            'SELECT id, report_type, title, category, description, location, date, status '
+            'SELECT id, report_type, title, category, description, location, date, status, ' + custom + ', ' + pickup + ' '
             'FROM reports ORDER BY id')]
     finally:
         connection.close()
     document = {
-        'schema_version': 1,
+        'schema_version': 3,
         'exported_at': datetime.now(timezone.utc).isoformat(),
         'reports': reports,
     }

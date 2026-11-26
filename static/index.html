@@ -6,11 +6,14 @@
   <title>FindBack · Campus lost &amp; found</title>
   <link rel="stylesheet" href="/static/style.css">
   <script src="/static/app.js" defer></script>
+  <script src="/static/chat.js" defer></script>
+  <script src="/static/claims.js" defer></script>
+  <script src="/static/activity.js" defer></script>
 </head>
 <body>
   <header>
     <div class="brand">FindBack<span>Campus lost &amp; found</span></div>
-    <span class="tag">Local midpoint prototype</span>
+    <div><span id="account-label" class="tag">Campus community</span> <button id="logout" class="secondary" hidden>Sign out</button></div>
   </header>
 
   <main>
@@ -20,10 +23,74 @@
       <p>Report a missing belonging or help a found item get home.</p>
     </section>
 
-    <div class="layout">
+    <section id="account-panel" class="panel">
+      <h2 id="account-heading">Sign in to FindBack</h2>
+      <p>Sign in to browse campus reports. Any email address is welcome.</p>
+      <form id="account-form">
+        <label id="name-label" hidden>Your name<input name="display_name" maxlength="80" autocomplete="name"></label>
+        <label>Email<input name="email" type="email" required maxlength="254" autocomplete="username"></label>
+        <label>Password<input name="password" type="password" required minlength="12" maxlength="128" autocomplete="current-password" aria-describedby="password-help"></label>
+        <p id="password-help">Use 12–128 characters.</p>
+        <button id="account-submit">Sign in</button>
+        <button id="account-toggle" type="button" class="secondary">Create an account</button>
+        <p id="account-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+    <section id="admin-panel" class="panel" hidden>
+      <h2>Reception access</h2>
+      <p>Assign reception access to staff accounts, or return them to ordinary user access.</p>
+      <button id="refresh-users" class="secondary">Refresh accounts</button>
+      <p id="admin-message" role="status" aria-live="polite"></p>
+      <div id="admin-users"></div>
+    </section>
+    <section id="activity-panel" class="panel" hidden>
+      <h2>Notifications <span id="notification-count" class="badge">0 unread</span></h2>
+      <div class="claim-actions">
+        <button id="refresh-activity" class="secondary" type="button">Refresh updates</button>
+        <button id="read-notifications" class="secondary" type="button">Mark these and earlier read</button>
+      </div>
+      <p id="activity-status" role="status" aria-live="polite"></p>
+      <div id="notification-list"></div>
+      <div class="claim-actions">
+        <button id="latest-notifications" type="button" class="secondary" hidden>Latest notifications</button>
+        <button id="older-notifications" type="button" class="secondary" hidden>Older notifications</button>
+      </div>
+      <h2 class="matches-heading">Possible matches</h2>
+      <p>Suggestions, not confirmed ownership. Compare details and contact the finder before claiming.</p>
+      <div id="match-list"></div>
+    </section>
+    <section id="inbox-panel" class="panel" hidden>
+      <h2>Inbox <span id="unread-count" class="badge">0 unread</span></h2>
+      <p>Private conversations about found items. Chat does not submit or approve a claim.</p>
+      <button id="refresh-inbox" class="secondary" type="button">Refresh messages</button>
+      <p id="inbox-status" role="status" aria-live="polite"></p>
+      <div class="chat-layout">
+        <div id="conversation-list" aria-label="Conversations"></div>
+        <section id="chat-panel" hidden aria-labelledby="chat-heading">
+          <h3 id="chat-heading"></h3>
+          <p id="chat-person"></p>
+          <button id="chat-item" class="secondary" type="button">View item</button>
+          <div id="chat-messages" role="log" aria-label="Messages" aria-live="polite"></div>
+          <form id="chat-form">
+            <label for="chat-body">Message</label>
+            <textarea id="chat-body" required maxlength="2000" rows="3" placeholder="Ask about the item or arrange pickup"></textarea>
+            <button id="send-message" type="submit">Send message</button>
+            <p id="chat-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+    </section>
+    <section id="claims-panel" class="panel" hidden>
+      <h2>Claims and returns</h2>
+      <p>Review your claims and requests for items you manage. Identifying details are private.</p>
+      <button id="refresh-claims" class="secondary" type="button">Refresh claims</button>
+      <p id="claims-status" role="status" aria-live="polite"></p>
+      <div id="claims-list"></div>
+    </section>
+    <div id="app-panel" class="layout" hidden>
       <section class="panel">
         <h2>Create a report</h2>
-        <p>Demo with synthetic information only. Reports are stored on this computer.</p>
+        <p>Reports are saved to FindBack. Avoid sharing private ID numbers or contact details.</p>
         <form id="report-form">
           <label>Report type
             <select name="report_type" required>
@@ -36,20 +103,45 @@
                    placeholder="Blue backpack near the library">
           </label>
           <label>Category
-            <select name="category" required>
-              <option value="backpack">Backpack</option>
-              <option value="water bottle">Water bottle</option>
-              <option value="headphones">Headphones</option>
+            <select name="category" required disabled>
+              <option value="">Loading categories…</option>
             </select>
+          </label>
+          <label id="custom-category-label" hidden>What kind of item?
+            <input name="custom_category" disabled minlength="2" maxlength="80"
+                   placeholder="For example, a graduation tassel">
           </label>
           <label>Description
             <textarea name="description" required minlength="10" maxlength="2000"
                       rows="4" placeholder="Describe color, brand, and distinctive features"></textarea>
           </label>
-          <label>Location
+          <label><span id="location-label">Where was it lost?</span>
             <input name="location" required minlength="2" maxlength="200"
                    placeholder="Campus library">
           </label>
+          <fieldset id="pickup-fields" hidden disabled>
+            <legend>Pickup details</legend>
+            <label>Who holds the item?
+              <select name="custody">
+                <option value="finder">I am keeping it for the owner</option>
+                <option id="reception-custody" value="reception" disabled>Reception holds it</option>
+              </select>
+            </label>
+            <p id="reception-note">Handed it to reception? Ask reception staff to post it with the collection details.</p>
+            <label><span id="collection-label">Suggested meeting location (optional)</span>
+              <input name="collection_location" minlength="2" maxlength="200"
+                     placeholder="For example, library reception">
+            </label>
+            <label>Pickup instructions (optional)
+              <textarea name="pickup_instructions" minlength="2" maxlength="500" rows="3"
+                        placeholder="For example, visit the reception desk during opening hours"></textarea>
+            </label>
+          </fieldset>
+          <label for="photo-input">Photos (optional)</label>
+          <input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-describedby="photo-help">
+          <p id="photo-help">Up to 3 photos, 5 MB each. JPEG, PNG or WebP. Hide ID numbers, addresses and other private details before uploading.</p>
+          <p id="photo-message" role="status" aria-live="polite"></p>
+          <div id="photo-previews" class="photo-grid"></div>
           <label>Date lost or found
             <input name="date" type="date" required>
           </label>
@@ -61,6 +153,9 @@
       <section class="panel browse">
         <h2>Browse reports</h2>
         <form id="filters" class="filters">
+          <label>Status
+            <select name="status"><option value="open">Available items</option><option value="resolved">Returned items</option><option value="">All reports</option></select>
+          </label>
           <label>Type
             <select name="report_type">
               <option value="">All types</option>
@@ -71,13 +166,10 @@
           <label>Category
             <select name="category">
               <option value="">All categories</option>
-              <option>backpack</option>
-              <option>water bottle</option>
-              <option>headphones</option>
             </select>
           </label>
           <label>Search
-            <input name="q" maxlength="200" placeholder="Title, description, location">
+            <input name="q" maxlength="200" placeholder="Title, description, location or other item type">
           </label>
           <button>Apply filters</button>
         </form>

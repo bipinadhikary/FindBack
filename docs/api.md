@@ -1,45 +1,29 @@
-# Report API
+# API
 
-The API runs on the same localhost address as the web interface. Interactive documentation is available at `/docs` while the server is running.
+Run the application and open `/docs` for request schemas and interactive documentation. Application routes require sign-in. Writes use JSON, same-origin checks, and the session CSRF token. See static/app.js for request headers.
 
-| Method | Path | Result |
+| Method | Route | Purpose |
 |---|---|---|
-| GET | `/` | Web interface |
-| GET | `/health` | Process status; does not check database availability |
-| POST | `/reports` | Create report, returns 201 |
-| GET | `/reports` | List reports, optionally filtered |
-| GET | `/reports/{report_id}` | Report details, or 404 if missing |
+| GET | /health | Process health |
+| POST | /auth/register | Register |
+| POST | /auth/login | Sign in |
+| GET | /auth/me | Current account |
+| POST | /auth/logout | End session |
+| GET, POST | /reports | Browse/create reports |
+| GET | /reports/{report_id} | Report detail |
+| GET | /reports/{report_id}/photos/{photo_id} | Protected photo |
+| POST | /reports/{report_id}/conversations | Open private conversation |
+| GET | /conversations | Participant inbox |
+| GET, POST | /conversations/{conversation_id}/messages | Read/send messages |
+| POST | /conversations/{conversation_id}/read | Mark read |
+| POST | /reports/{report_id}/claims | Submit claim |
+| GET | /claims | Accessible claims |
+| POST | /claims/{claim_id}/actions | Decision, withdrawal, handover |
+| GET | /matches | Possible matches |
+| GET | /notifications | Recipient notifications |
+| POST | /notifications/read-all | Mark read through a boundary |
+| POST | /notifications/{notification_id}/read | Mark one read |
+| GET | /admin/users | Role management |
+| PATCH | /admin/users/{user_id}/role | Assign/remove reception role |
 
-## Create a report
-
-```json
-{
-  "report_type": "lost",
-  "title": "Demo blue backpack",
-  "category": "backpack",
-  "description": "Blue demo backpack with a yellow star",
-  "location": "Demo campus library",
-  "date": "2026-10-12"
-}
-```
-
-Required fields:
-
-- `report_type`: lost or found.
-- `title`: 3-100 characters.
-- `category`: backpack, water bottle, or headphones.
-- `description`: 10-2000 characters.
-- `location`: 2-200 characters.
-- `date`: valid date, no later than the server's local date.
-
-Text is trimmed. Invalid, missing, or unexpected body fields return 422. The response includes a generated `id` and status `open`. Editing and resolving reports are not implemented.
-
-## Filter reports
-
-`GET /reports?report_type=lost&category=backpack&q=yellow`
-
-All filters are optional and can be combined. Search checks title, description, and location using SQLite's case mapping. Unsupported type/category values return 422. No matches returns an empty list. Reports are ordered by event date descending, then insertion order descending.
-
-## Storage
-
-Reports are stored in `data/findback.sqlite3`. Startup creates the database and table if needed. `FINDBACK_DB_PATH` optionally overrides the path. Local databases are excluded from Git. The prototype has no authentication and is intended for localhost use with synthetic data.
+Ownership and participant checks restrict claims and chats. Administrator status does not grant unrestricted access to private conversations. Startup migrations retain existing records; legacy ownerless reports have limited interaction support.
